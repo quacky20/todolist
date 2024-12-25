@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">To-Do</a>
+        <label id="icons">
+            <i class='bx bx-menu'></i>
+        </label>
+        <ul id="navmenu">
+            </li><a href="#">Menu 1</a>
+            </li><a href="#">Menu 2</a>
+            </li><a href="#">Menu 3</a>
+            </li><a href="#">Menu 4</a>
+        </ul>
+    </header>
+    <div class="tasks">
+        <div id="taskIn">
+            <input id="inputEl">
+            <button id="inputBtn"><i class='bx bx-plus'></i></button>
+        </div>
+        <div class="taskList">
+            <ul id="taskUl">
+                Add your tasks!
+                <li class="taskLi">
+                    <input type="checkbox" name="tasks" id="taskCheckBox">
+                    <label onclick="taskDone()">Task 1</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="index.js" type="module"></script>
+</body>
+</html>
