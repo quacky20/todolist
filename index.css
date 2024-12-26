@@ -69,45 +69,6 @@ body {
     }
 }
 
-@media (max-width: 768px){
-    #icons {
-        display: inline-flex;
-    }
-
-    #navmenu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        height: 100vh;
-        background: rgba(0,0,0,0.1);
-        backdrop-filter: blur(25px);
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        max-width: 0;
-        transition: max-width 0.5s ease-in-out;
-        z-index: 99;
-    }
-
-    #navmenu.open {
-        max-width: 50rem;
-    }
-    #navmenu a{
-        display: block;
-        font-size: 1.1rem;
-        margin: 1.5rem 1.5rem;
-        text-align: center;
-        z-index: 99;
-    }
-}
-
-.tasks {
-    margin-top: 7rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    /* border: 2px solid red; */
-    width: 90wh;
-    z-index: 10;
-}
 
 #taskIn {
     display: flex;
@@ -139,63 +100,175 @@ body {
     padding: auto;
 }
 
+.tasks {
+    margin-top: 7rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    /* border: 2px solid red; */
+    width: 90wh;
+    z-index: 10;
+}
+
 .taskList {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
     margin-top: 1rem;
+    color: white;
+}
+
+#UDcon {
+    padding: 1rem;
+    width: 49%;
+    border: 2px solid red;
     border: none;
     border-radius: 0.6rem;
     background: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(25px);
-    padding: 0.5rem;
-    color: white;
 }
 
-.taskLi {
+#Dcon {
+    padding: 1rem;
+    width: 49%;
+    border: 2px solid red;
+    border: none;
+    border-radius: 0.6rem;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(25px);
+}
+
+#done {
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+#done li {
     list-style-type: none;
-}
-
-[type = "checkbox"]{
-    opacity: 0;
-}
-
-[type = "checkbox"] + label {
-    position: relative;
     padding-left: 2rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    position: relative;
+}
+
+#done li::before{
+    content: "";
+    position: absolute;
+    height: 1rem;
+    width: 1rem;
+    border: 2px solid white;
+    border-radius: 0.4rem;
+    left: 0.2rem;
+}
+
+#done li.checked {
+    color: #aaa;
+    text-decoration: line-through;
+}
+
+#done li.checked::before {
+    border: 2px solid #aaa;
+    background: url(/check-solid.svg);
+    background-size: 75%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#done li span{
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    right: 0;
+    height: 1rem;
+    width: 1rem;
     cursor: pointer;
-    display: inline-block;
-    line-height: 2rem;
 }
 
-[type = "checkbox"] + label::before{
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.5rem;
-    width: 1rem;
-    height: 1rem;
-    outline: 2px solid white;
-    border-radius: 0.1rem;
+#undone {
+    font-size: 1rem;
+    padding: 1rem;
 }
 
-[type = "checkbox"]:checked + label::before{
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.5rem;
-    width: 1rem;
-    height: 1rem;
-    outline: 2px solid rgb(82, 82, 82);
-    border-radius: 0.1rem;
+#undone li {
+    list-style-type: none;
+    padding-left: 2rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    position: relative;
 }
 
-[type = "checkbox"]:checked + label::after{
+#undone li::before{
     content: "";
     position: absolute;
-    left: 0;
-    top: 0.5rem;
-    width: 1rem;
     height: 1rem;
-    background-image: url(/bx-check.svg);
-    background-size: contain;
-    outline: 2px solid rgb(82, 82, 82);
-    border-radius: 0.1rem;
+    width: 1rem;
+    border: 2px solid white;
+    border-radius: 0.4rem;
+    left: 0.2rem;
+}
+
+#undone li.checked {
+    color: #aaa;
+    text-decoration: line-through;
+}
+
+#undone li.checked::before {
+    border: 2px solid #aaa;
+    background: url(/check-solid.svg);
+    background-size: 75%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#undone li span{
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    right: 0;
+    height: 1rem;
+    width: 1rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px){
+    #icons {
+        display: inline-flex;
+    }
+
+    #navmenu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        height: 100vh;
+        background: rgba(0,0,0,0.1);
+        backdrop-filter: blur(25px);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-width: 0;
+        transition: max-width 0.5s ease-in-out;
+        z-index: 99;
+    }
+
+    #navmenu.open {
+        max-width: 50rem;
+    }
+    #navmenu a{
+        display: block;
+        font-size: 1.1rem;
+        margin: 1.5rem 1.5rem;
+        text-align: center;
+        z-index: 99;
+    }
+
+    .taskList {
+        flex-direction: column;
+    }
+
+    #UDcon {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    #Dcon {
+        width: 100%;
+    }
 }
