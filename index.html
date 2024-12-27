@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <title>To-Do List</title>
 </head>
+
 <body>
     <header class="header">
         <a href="#" class="logo">To-Do</a>
@@ -15,13 +17,13 @@
             <i class='bx bx-menu'></i>
         </label>
         <ul id="navmenu">
-            <a href="#">Menu 1</a>
-            <a href="#">Menu 2</a>
+            <a href="#" id="tasksLink">Tasks</a>
+            <a href="#" id="themesLink">Personalize</a>
             <a href="#">Menu 3</a>
             <a href="#">Menu 4</a>
         </ul>
     </header>
-    <div class="tasks">
+    <div class="tasks" id="taskMenu">
         <div id="taskIn">
             <input id="inputEl" placeholder="Enter your task">
             <button id="inputBtn"><i class='bx bx-plus'></i></button>
@@ -37,6 +39,21 @@
             </div>
         </div>
     </div>
+    <div id="themeMenu">
+        <h2>Personalize</h2>
+        <div id="allthemes">
+            <button id="original" class="themeIcon">ORIGINAL</button>
+            <button id="moonlit-asteroid" class="themeIcon"> MOONLIT ASTEROID</button>
+            <button id="witching-hour" class="themeIcon"> WITCHING HOUR</button>
+            <button id="lawrencium" class="themeIcon"> LAWRENCIUM</button>
+            <button id="argon" class="themeIcon">ARGON</button>
+            <button id="terminal" class="themeIcon">TERMINAL</button>
+            <button id="meridian" class="themeIcon">MERIDIAN</button>
+            <button id="easy-med" class="themeIcon">EASY MED</button>
+            <button id="grapefruit-sunset" class="themeIcon">GRAPEFRUIT SUNSET</button>
+        </div>
+    </div>
     <script src="index.js" type="module"></script>
 </body>
+
 </html>

@@ -21,7 +21,12 @@ const inputEl = document.getElementById("inputEl")
 const inputBtn = document.getElementById("inputBtn")
 const undoneUl = document.getElementById("undone")
 const doneUl = document.getElementById("done")
-const doneHeader = document.getElementById("doneHeader")
+const taskMenu = document.getElementById("taskMenu")
+const themeMenu = document.getElementById("themeMenu")
+const taskLink = document.getElementById("tasksLink")
+const themeLink = document.getElementById("themesLink")
+const themeCont = document.getElementById("allthemes")
+
 
 menuIcon.addEventListener("click", function(){
     menuList.classList.toggle("open")
@@ -121,3 +126,38 @@ doneUl.addEventListener("click", function(e){
     }
 })
 
+function showMenu(toshow, tohide){
+    toshow.style.display = "block"
+    tohide.style.display = "none"
+}
+
+taskLink.addEventListener("click", function(e){
+    e.preventDefault();
+    showMenu(taskMenu, themeMenu)
+})
+
+themeLink.addEventListener("click", function(e){
+    e.preventDefault();
+    showMenu(themeMenu, taskMenu)
+})
+
+function changeTheme(theme){
+    document.documentElement.style.setProperty("--background", theme)
+}
+
+themeCont.addEventListener("click", (e) => {
+    const tg = e.target
+    if (tg.classList.contains("themeIcon")){
+        const style = window.getComputedStyle(tg)
+        const bg = style.getPropertyValue('background')
+        changeTheme(bg)
+
+        localStorage.setItem('selectedTheme', bg)
+    }
+})
+
+document.addEventListener("DOMContentLoaded", () => {
+    const storedTheme = localStorage.getItem('selectedTheme')
+    console.log(storedTheme)
+    changeTheme(storedTheme)
+})
