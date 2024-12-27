@@ -236,51 +236,6 @@ body {
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    #icons {
-        display: inline-flex;
-    }
-
-    #navmenu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(25px);
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        max-width: 0;
-        transition: max-width 0.5s ease-in-out;
-        z-index: 99;
-    }
-
-    #navmenu.open {
-        max-width: 50rem;
-    }
-
-    #navmenu a {
-        display: block;
-        font-size: 1.1rem;
-        margin: 1.5rem 1.5rem;
-        text-align: center;
-        z-index: 99;
-    }
-
-    .taskList {
-        flex-direction: column;
-    }
-
-    #UDcon {
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-
-    #Dcon {
-        width: 100%;
-    }
-}
-
 #themeMenu {
     margin-top: 7rem;
     margin-left: 1rem;
@@ -409,4 +364,83 @@ body {
     background: linear-gradient(to right, #904e95, #e96443);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
+}
+
+#accMenu {
+    margin-top: 7rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 90wh;
+    z-index: 10;
+    display: none;
+    height: 80vh;
+    /* border: 2px solid red; */
+    justify-content: center;
+    align-items: center;
+}
+
+#accWin {
+    /* border: 2px solid red; */
+    border-radius: 0.6rem;
+    width: 400px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+#loginHead {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    #icons {
+        display: inline-flex;
+    }
+
+    #navmenu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(25px);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-width: 0;
+        transition: max-width 0.5s ease-in-out;
+        z-index: 99;
+    }
+
+    #navmenu.open {
+        max-width: 50rem;
+    }
+
+    #navmenu a {
+        display: block;
+        font-size: 1.1rem;
+        margin: 1.5rem 1.5rem;
+        text-align: center;
+        z-index: 99;
+    }
+
+    .taskList {
+        flex-direction: column;
+    }
+
+    #UDcon {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    #Dcon {
+        width: 100%;
+    }
+
+    #accWin {
+        width: 60%;
+    }
 }

@@ -23,10 +23,13 @@ const undoneUl = document.getElementById("undone")
 const doneUl = document.getElementById("done")
 const taskMenu = document.getElementById("taskMenu")
 const themeMenu = document.getElementById("themeMenu")
+const accMenu = document.getElementById("accMenu")
 const taskLink = document.getElementById("tasksLink")
 const themeLink = document.getElementById("themesLink")
+const accLink = document.getElementById("accLink")
 const themeCont = document.getElementById("allthemes")
 
+const allMenus = [taskMenu, themeMenu, accMenu]
 
 menuIcon.addEventListener("click", function(){
     menuList.classList.toggle("open")
@@ -126,19 +129,30 @@ doneUl.addEventListener("click", function(e){
     }
 })
 
-function showMenu(toshow, tohide){
-    toshow.style.display = "block"
-    tohide.style.display = "none"
+function showMenu(toshow, mode){
+    allMenus.forEach(menu => {
+        if (menu === toshow){
+            menu.style.display = mode
+        }
+        else{
+            menu.style.display = "none"
+        }
+    })
 }
 
 taskLink.addEventListener("click", function(e){
     e.preventDefault();
-    showMenu(taskMenu, themeMenu)
+    showMenu(taskMenu, "block")
 })
 
 themeLink.addEventListener("click", function(e){
     e.preventDefault();
-    showMenu(themeMenu, taskMenu)
+    showMenu(themeMenu, "block")
+})
+
+accLink.addEventListener("click", function(e){
+    e.preventDefault();
+    showMenu(accMenu, "flex")
 })
 
 function changeTheme(theme){
