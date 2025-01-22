@@ -426,6 +426,17 @@ body {
     outline: none;
 }
 
+#confirmPassIn{
+    width: 100%;
+    height: 2rem;
+    background: transparent;
+    color: white;
+    padding-inline: 20px 50px;
+    border: 2px solid white;
+    border-radius: 0.6rem;
+    outline: none;
+}
+
 .label{
     font-size: 1rem;
     position: absolute;
@@ -434,7 +445,8 @@ body {
     transition: .2s;
 }
 
-#userIn:focus ~ .label{
+#userIn:focus ~ .label,
+#userIn:valid ~ .label{
     position: absolute;
     top: -15px;
     left: 0.7rem;
@@ -446,7 +458,22 @@ body {
     border-radius: 0.6rem;
 }
 
-#passIn:focus ~ .label{
+#passIn:focus ~ .label,
+#passIn:valid ~ .label{
+    position: absolute;
+    top: -15px;
+    left: 0.7rem;
+    font-size: 0.8rem;
+    background-color: white;
+    color: rgb(57, 57, 57);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 0.6rem;
+}
+
+
+#confirmPassIn:focus ~ .label,
+#confirmPassIn:valid ~ .label{
     position: absolute;
     top: -15px;
     left: 0.7rem;

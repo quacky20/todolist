@@ -59,19 +59,23 @@
                 <span>LOGIN</span>
             </div>
             <div class="userInput">
-                <input type="text" name="userIn" id="userIn">
+                <input type="text" name="userIn" id="userIn" required minlength="3">
                 <label for="userIn" class="label">Username</label>
             </div>
             <div class="userInput">
-                <input type="password" name="pass" id="passIn">
+                <input type="password" name="pass" id="passIn" required minlength="8">
                 <label for="pass" class="label">Password</label>
+            </div>
+            <div class="userInput register-only" style="display: none;">
+                <input type="password" name="confirmpass" id="confirmPassIn" required minlength="8">
+                <label for="confirmpass" class="label">Confirm Password</label>
             </div>
             <div id="remember-forget">
                 <div id="rememberme">
                     <input type="checkbox" name="remember" id="remember">
                     <label for="remember">Remember Me</label>
                 </div>
-                <div id="forgot">
+                <div id="forgot" class="login-only">
                     <a href="#">Forgot password</a>
                 </div>
             </div>
@@ -79,9 +83,9 @@
                 <input type="submit" id="submitbutton" value="Login">
             </div>
             <div id="register">
-                <span>Don't have an account? <a href="#">Register</a></span>
+                <span>Don't have an account? <a href="#" id="reg">Register</a></span>
             </div>
-        </div>
+        </div>        
     </div>
     <script src="index.js" type="module"></script>
 </body>

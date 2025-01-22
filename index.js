@@ -1,19 +1,32 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getDatabase, 
+import {
+    getDatabase,
     ref,
     push,
     onValue,
     remove,
-    update } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
-
+    update
+} from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js"
 
 const firebaseConfig = {
-    databaseURL: "https://to-do-list-67494-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    apiKey: "AIzaSyDtFWFR-w3EMw8b9e3Fcg8QtDdp3xVbJCU",
+    authDomain: "to-do-list-67494.firebaseapp.com",
+    databaseURL: "https://to-do-list-67494-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "to-do-list-67494",
+    storageBucket: "to-do-list-67494.firebasestorage.app",
+    messagingSenderId: "320192687400",
+    appId: "1:320192687400:web:87ff1264c4a7819db2b41d"
 }
 
 const app = initializeApp(firebaseConfig)
 const database = getDatabase(app)
 const tasksRef = ref(database, "tasks")
+const auth = getAuth(app)
 
 const menuIcon = document.getElementById("icons")
 const menuList = document.getElementById("navmenu")
@@ -29,14 +42,90 @@ const themeLink = document.getElementById("themesLink")
 const accLink = document.getElementById("accLink")
 const themeCont = document.getElementById("allthemes")
 
+const loginHead = document.getElementById("loginHead");
+const submitButton = document.getElementById("submitbutton");
+const registerLink = document.getElementById("reg");
+const registerToggle = document.getElementById("register");
+const rememberForget = document.getElementById("remember-forget");
+const confirmPassInput = document.getElementById("confirmPassIn");
+
+function toggleAuthMode() {
+    const isLogin = loginHead.querySelector("span").textContent === "LOGIN"; 
+
+    loginHead.querySelector("span").textContent = isLogin ? "REGISTER" : "LOGIN"; 
+
+    submitButton.value = isLogin ? "Register" : "Login"; 
+
+    registerToggle.innerHTML = isLogin
+        ? `Already have an account? <a href="#" id="reg">Login</a>`
+        : `Don't have an account? <a href="#" id="reg">Register</a>`;
+
+    confirmPassInput.parentElement.style.display = isLogin ? "block" : "none";
+
+    rememberForget.style.display = isLogin ? "none" : "flex";
+
+    const newRegisterLink = document.querySelector("#register a");
+    newRegisterLink.addEventListener("click", toggleAuthMode);
+}
+
+
+registerLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    toggleAuthMode();
+});
+
+submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    const email = document.getElementById("userIn").value;
+    const password = document.getElementById("passIn").value;
+    const confirmPassword = document.getElementById("confirmPassIn").value;
+    const isLogin = loginHead.querySelector("span").textContent === "LOGIN";
+
+    console.log('Confirm Password:', confirmPassword);
+    console.log('isLogin:', isLogin);
+
+    if (isLogin) {
+        // Login Mode
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                location.reload();
+                alert("Login Successful!");
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                alert(errorMessage);
+            });
+    } else {
+        // Register Mode
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+        } else {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    location.reload();
+                    alert("Account Created!");
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    alert(errorMessage);
+                });
+        }
+    }
+});
+
+
+
+
 const allMenus = [taskMenu, themeMenu, accMenu]
 
-menuIcon.addEventListener("click", function(){
+menuIcon.addEventListener("click", function () {
     menuList.classList.toggle("open")
 })
 
-inputBtn.addEventListener("click", function(){
-    if (inputEl.value != ""){
+inputBtn.addEventListener("click", function () {
+    if (inputEl.value != "") {
         push(tasksRef, {
             title: inputEl.value,
             done: false
@@ -45,8 +134,7 @@ inputBtn.addEventListener("click", function(){
     }
 })
 
-function render(snapshot)
-{
+function render(snapshot) {
     const tasks = snapshot.val()
     undoneUl.innerHTML = "";
     doneUl.innerHTML = "";
@@ -54,7 +142,7 @@ function render(snapshot)
     let hasDoneTask = false;
     let hasUndoneTask = false;
 
-    for (const taskId in tasks){
+    for (const taskId in tasks) {
         const task = tasks[taskId]
         const li = document.createElement("li")
         li.textContent = task.title
@@ -65,7 +153,7 @@ function render(snapshot)
         deleteSpan.classList.add("delete")
         li.appendChild(deleteSpan)
 
-        if (task.done){
+        if (task.done) {
             hasDoneTask = true
             li.classList.add("checked")
             doneUl.appendChild(li)
@@ -75,17 +163,17 @@ function render(snapshot)
             undoneUl.appendChild(li)
         }
 
-        if(hasUndoneTask && !hasDoneTask){
+        if (hasUndoneTask && !hasDoneTask) {
             doneUl.innerHTML = "Finish your tasks!"
         }
-        if(hasDoneTask && !hasUndoneTask){
+        if (hasDoneTask && !hasUndoneTask) {
             undoneUl.innerHTML = "All tasks done!"
         }
     }
 }
 
-onValue(tasksRef, function(snapshot){
-    if (snapshot.exists()){
+onValue(tasksRef, function (snapshot) {
+    if (snapshot.exists()) {
         render(snapshot)
     }
     else {
@@ -95,73 +183,73 @@ onValue(tasksRef, function(snapshot){
 })
 
 
-undoneUl.addEventListener("click", function(e){
+undoneUl.addEventListener("click", function (e) {
     const taskLi = e.target.closest("li")
-    if(!taskLi) return;
+    if (!taskLi) return;
 
     const taskId = taskLi.dataset.id
 
-    if (e.target.tagName === "LI"){
+    if (e.target.tagName === "LI") {
         const taskRef = ref(database, `tasks/${taskId}`)
         const isDone = e.target.classList.contains("checked")
-        update(taskRef, { done: !isDone})
+        update(taskRef, { done: !isDone })
     }
-    else if (e.target.classList.contains("delete")){
+    else if (e.target.classList.contains("delete")) {
         const taskRef = ref(database, `tasks/${taskId}`)
         remove(taskRef)
     }
 })
 
-doneUl.addEventListener("click", function(e){
+doneUl.addEventListener("click", function (e) {
     const taskLi = e.target.closest("li")
-    if(!taskLi) return;
+    if (!taskLi) return;
 
     const taskId = taskLi.dataset.id
 
-    if (e.target.tagName === "LI"){
+    if (e.target.tagName === "LI") {
         const taskRef = ref(database, `tasks/${taskId}`)
         const isDone = e.target.classList.contains("checked")
-        update(taskRef, { done: !isDone})
+        update(taskRef, { done: !isDone })
     }
-    else if (e.target.classList.contains("delete")){
+    else if (e.target.classList.contains("delete")) {
         const taskRef = ref(database, `tasks/${taskId}`)
         remove(taskRef)
     }
 })
 
-function showMenu(toshow, mode){
+function showMenu(toshow, mode) {
     allMenus.forEach(menu => {
-        if (menu === toshow){
+        if (menu === toshow) {
             menu.style.display = mode
         }
-        else{
+        else {
             menu.style.display = "none"
         }
     })
 }
 
-taskLink.addEventListener("click", function(e){
+taskLink.addEventListener("click", function (e) {
     e.preventDefault();
     showMenu(taskMenu, "block")
 })
 
-themeLink.addEventListener("click", function(e){
+themeLink.addEventListener("click", function (e) {
     e.preventDefault();
     showMenu(themeMenu, "block")
 })
 
-accLink.addEventListener("click", function(e){
+accLink.addEventListener("click", function (e) {
     e.preventDefault();
     showMenu(accMenu, "flex")
 })
 
-function changeTheme(theme){
+function changeTheme(theme) {
     document.documentElement.style.setProperty("--background", theme)
 }
 
 themeCont.addEventListener("click", (e) => {
     const tg = e.target
-    if (tg.classList.contains("themeIcon")){
+    if (tg.classList.contains("themeIcon")) {
         const style = window.getComputedStyle(tg)
         const bg = style.getPropertyValue('background')
         changeTheme(bg)
