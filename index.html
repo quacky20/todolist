@@ -55,35 +55,38 @@
     </div>
     <div id="accMenu">
         <div id="accWin">
-            <div id="loginHead">
-                <span>LOGIN</span>
-            </div>
-            <div class="userInput">
-                <input type="text" name="userIn" id="userIn" required minlength="3">
-                <label for="userIn" class="label">Username</label>
-            </div>
-            <div class="userInput">
-                <input type="password" name="pass" id="passIn" required minlength="8">
-                <label for="pass" class="label">Password</label>
-            </div>
-            <div class="userInput register-only" style="display: none;">
-                <input type="password" name="confirmpass" id="confirmPassIn" required minlength="8">
-                <label for="confirmpass" class="label">Confirm Password</label>
-            </div>
-            <div id="remember-forget">
-                <div id="rememberme">
-                    <input type="checkbox" name="remember" id="remember">
-                    <label for="remember">Remember Me</label>
+            <div id="auth-Page">
+                <div id="loginHead">
+                    <span>LOGIN</span>
                 </div>
-                <div id="forgot" class="login-only">
-                    <a href="#">Forgot password</a>
+                <div class="userInput">
+                    <input type="text" name="userIn" id="userIn" required minlength="3">
+                    <label for="userIn" class="label">Username</label>
+                </div>
+                <div class="userInput">
+                    <input type="password" name="pass" id="passIn" required minlength="8">
+                    <label for="pass" class="label">Password</label>
+                </div>
+                <div class="userInput register-only" style="display: none;">
+                    <input type="password" name="confirmpass" id="confirmPassIn" required minlength="8">
+                    <label for="confirmpass" class="label">Confirm Password</label>
+                </div>
+                <div id="remember-forget">
+                    <div id="forgot" class="login-only">
+                        <a href="#">Forgot password</a>
+                    </div>
+                </div>
+                <div id="submit">
+                    <input type="submit" id="submitbutton" value="Login">
+                </div>
+                <div id="register">
+                    <span>Don't have an account? <a href="#" id="reg">Register</a></span>
                 </div>
             </div>
-            <div id="submit">
-                <input type="submit" id="submitbutton" value="Login">
-            </div>
-            <div id="register">
-                <span>Don't have an account? <a href="#" id="reg">Register</a></span>
+            <div id="profile-page" style="display: none;">
+                <h2>Welcome, <br><span id="userEmail"></span></h2>
+                <button id="logOut">Log Out</button>
+                <button id="resetPassword">Reset Password</button>
             </div>
         </div>        
     </div>

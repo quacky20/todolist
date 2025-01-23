@@ -1,4 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+
 import {
     getDatabase,
     ref,
@@ -7,10 +8,14 @@ import {
     remove,
     update
 } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    onAuthStateChanged,
+    signOut
 } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js"
 
 const firebaseConfig = {
@@ -48,6 +53,64 @@ const registerLink = document.getElementById("reg");
 const registerToggle = document.getElementById("register");
 const rememberForget = document.getElementById("remember-forget");
 const confirmPassInput = document.getElementById("confirmPassIn");
+const forgotPassword = document.getElementById("forgot")
+
+const authPage = document.getElementById("auth-Page")
+const profilePage = document.getElementById("profile-page")
+const userEmailspan = document.getElementById("userEmail")
+const logOut = document.getElementById("logOut")
+const resetPass = document.getElementById("resetPassword")
+
+onAuthStateChanged(auth, (user)=> {
+    if (user) {
+        authPage.style.display = "none";
+        profilePage.style.display = "block";
+
+        userEmailspan.textContent = user.email;
+    }
+    else{
+        authPage.style.display = "block";
+        profilePage.style.display = "none";
+    }
+})
+
+logOut.addEventListener("click", ()=>{
+    signOut(auth)
+    .then(()=>{
+        alert("Logged Out Successfully!")
+    })
+    .catch((error)=>{
+        const errorMessage = error.message;
+        alert(errorMessage);
+    })
+})
+
+resetPass.addEventListener("click", ()=>{
+    const email = auth.currentUser.email
+    sendPasswordResetEmail(auth, email)
+    sendPasswordResetEmail(auth, email)
+    .then(()=>{
+        alert("A password reset link has been sent to your email")
+    })
+    .catch((error)=>{
+        const errorMessage = error.message;
+        alert(errorMessage);
+    })
+})
+
+function resetPassword(){
+    const email = document.getElementById("userIn").value
+    sendPasswordResetEmail(auth, email)
+    .then(()=>{
+        alert("A password reset link has been sent to your email")
+    })
+    .catch((error)=>{
+        const errorMessage = error.message;
+        alert(errorMessage);
+    })
+}
+
+forgotPassword.addEventListener('click', resetPassword)
 
 function toggleAuthMode() {
     const isLogin = loginHead.querySelector("span").textContent === "LOGIN"; 
@@ -115,9 +178,6 @@ submitButton.addEventListener("click", function (event) {
     }
 });
 
-
-
-
 const allMenus = [taskMenu, themeMenu, accMenu]
 
 menuIcon.addEventListener("click", function () {
@@ -162,13 +222,12 @@ function render(snapshot) {
             hasUndoneTask = true
             undoneUl.appendChild(li)
         }
-
-        if (hasUndoneTask && !hasDoneTask) {
-            doneUl.innerHTML = "Finish your tasks!"
-        }
-        if (hasDoneTask && !hasUndoneTask) {
-            undoneUl.innerHTML = "All tasks done!"
-        }
+    }
+    if (hasUndoneTask && !hasDoneTask) {
+        doneUl.innerHTML = "Finish your tasks!"
+    }
+    if (hasDoneTask && !hasUndoneTask) {
+        undoneUl.innerHTML = "All tasks done!"
     }
 }
 
